@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.0'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    group = 'by.kechko'
+    version = '1.0-SNAPSHOT'
+    sourceCompatibility = '17'
+}
+
+ext {
+    openApiVersion = '2.1.0'
+    modelMapperVersion = '3.1.1'
+    jedisVersion = '4.4.3'
+    flywayVersion = '9.19.1'
+    postgresqlVersion = '42.6.0'
+    lombokVersion = '1.18.24'
+    junitVersion = '5.7.1'
+    javaJwtVersion = '4.4.0'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$openApiVersion"
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    testImplementation 'org.springframework.security:spring-security-test'
+//    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation "org.modelmapper:modelmapper:$modelMapperVersion"
+
+    implementation "redis.clients:jedis:$jedisVersion"
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

@@ -1,0 +1,72 @@
+#port
+server:
+  url-1: http://localhost:8081
+  url-2: http://localhost:8082
+  port: 8081
+  servlet:
+    context-path: /services/v1
+
+#actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,loggers,env,scheduledtasks,shutdown,beans,httpexchanges,info
+
+#Spring configuration
+spring:
+  application:
+    name: pet-project
+  main:
+    allow-circular-references: true
+  codec:
+    max-in-memory-size: 1MB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "kechko1994@gmail.com"
+    password: "pcod vwoe mcga pvjh"
+    properties:
+      mail:
+        debug: true
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          ssl:
+            enable: false
+          starttls:
+            enable: true
+#OpenAPI swagger
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  show-actuator: true
+
+
+#logging configs
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d %p %c{1.} [%t] %m%n"
+  file:
+    name: logs/application.log
+logback:
+  rolling policy:
+    file-name-pattern: logs/archive/application.%d{yyyyMMdd-HHmm}.log
+    max-file-size: 100MB
+    max-history: 30
+    total-size-cap: 20GB
+    clean-history-on-start: false
+
+scheduler:
+  notification-cron: 0 */5 * * * *
+
+redis:
+ host: fm_redis
+ port: 6379
+ ttl: 30
