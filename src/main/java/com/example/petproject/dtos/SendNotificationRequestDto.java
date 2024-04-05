@@ -21,27 +21,22 @@ public class SendNotificationRequestDto extends NotificationRequestDto {
     private ClientKind clientKind;
 
     @NotBlank
-    @Email
+//    @Email
     private String sender;
     @NotBlank
     private String subject;
-    @Email
+//    @Email
     private String recipient;
     private Map<String, byte[]> files;
 
     @Builder
     public SendNotificationRequestDto(NotificationType notificationType,
-                                      String receiverId,
                                       String message,
-                                      ClientKind clientKind,
-                                      String phoneNumber,
                                       String sender,
                                       String recipient,
                                       String subject,
                                       Map<String, byte[]> files) {
         super(notificationType, message);
-        this.clientKind = clientKind;
-        this.phoneNumber = phoneNumber;
         this.files = files;
         this.sender = sender;
         this.recipient = recipient;

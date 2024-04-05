@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class NotificationJob implements Runnable {
 
     private final NotificationService notificationService;
-
     @Override
     public void run() {
         SendNotificationRequestDto sendNotificationRequestDto = SendNotificationRequestDto.builder()

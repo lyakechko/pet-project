@@ -21,6 +21,24 @@ spring:
     allow-circular-references: true
   codec:
     max-in-memory-size: 1MB
+  datasource:
+    hikari:
+      data-source-properties:
+        preparedStatementCacheQueries: 0
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/db_pet_project?currentSchema=p_core
+    username: postgres
+    password: postgres
+  flyway:
+    locations: classpath:db.migration
+    schemas: p_core
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
   mail:
     host: smtp.gmail.com
     port: 587
@@ -67,6 +85,6 @@ scheduler:
   notification-cron: 0 */5 * * * *
 
 redis:
- host: fm_redis
+ host: localhost
  port: 6379
  ttl: 30
