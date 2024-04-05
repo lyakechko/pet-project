@@ -17,6 +17,8 @@ management:
 spring:
   application:
     name: pet-project
+  profiles:
+    default: local
   main:
     allow-circular-references: true
   codec:
@@ -25,8 +27,8 @@ spring:
     hikari:
       data-source-properties:
         preparedStatementCacheQueries: 0
-    driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/db_pet_project?currentSchema=p_core
+    driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
   flyway:
@@ -62,7 +64,6 @@ springdoc:
     path: /api-docs
   show-actuator: true
 
-
 #logging configs
 logging:
   level:
@@ -82,7 +83,7 @@ logback:
     clean-history-on-start: false
 
 scheduler:
-  notification-cron: 0 */5 * * * *
+  notification-cron: 0 */55 * * * *
 
 redis:
  host: localhost
