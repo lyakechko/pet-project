@@ -60,6 +60,17 @@ dependencies {
     implementation "redis.clients:jedis:$jedisVersion"
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation "org.flywaydb:flyway-core:$flywayVersion"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation group: 'com.github.librepdf', name: 'openpdf', version: '1.3.30'
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.0.6'
+
+    compileOnly group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: '1.17'
+    testCompileOnly group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: '1.17'
+    annotationProcessor group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: '1.17'
+    testAnnotationProcessor group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: '1.17'
+
 }
 
 tasks.named('test') {
