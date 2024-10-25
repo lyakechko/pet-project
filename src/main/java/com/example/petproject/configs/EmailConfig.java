@@ -6,9 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.Properties;
+import java.util.zip.CheckedInputStream;
 
 @Configuration
 public class EmailConfig {
@@ -40,7 +39,6 @@ public class EmailConfig {
 
         mailSender.setHost(host);
         mailSender.setPort(port);
-
         mailSender.setUsername(userName);
         mailSender.setPassword(password);
 

@@ -2,6 +2,10 @@ package com.example.petproject.services.impl;
 
 import com.example.petproject.dtos.NotificationResponseDto;
 import com.example.petproject.dtos.SendNotificationRequestDto;
+import com.example.petproject.entities.Notification;
+import com.example.petproject.enums.NotificationSendStatus;
+import com.example.petproject.enums.NotificationType;
+import com.example.petproject.repositories.NotificationRepository;
 import com.example.petproject.services.EmailNotificationService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -14,6 +18,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
@@ -23,6 +28,8 @@ import java.util.Objects;
 public class EmailNotificationServiceImpl implements EmailNotificationService {
 
     private final JavaMailSender javaMailSender;
+    private final NotificationRepository notificationRepository;
+
 
     @Override
     public NotificationResponseDto sendEmailNotification(SendNotificationRequestDto sendNotificationRequestDto) {
@@ -50,8 +57,10 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
         } catch (Exception exception) {
             log.error("Error sending email notification. Message : {}", exception.getMessage());
             log.info("Error sending email notification. Message : {}", exception.getMessage());
+            saveNotification(sendNotificationRequestDto, NotificationSendStatus.NOT_SENT);
             return new NotificationResponseDto(EmailNotificationService.ERROR);
         }
+        saveNotification(sendNotificationRequestDto, NotificationSendStatus.SENT);
         return new NotificationResponseDto(EmailNotificationService.SUCCESS);
     }
 
@@ -60,9 +69,20 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
         try {
             String encodeToString = Base64.getEncoder().encodeToString(file.getValue());
             byte[] decode = Base64.getDecoder().decode(encodeToString.getBytes());
-            helper.addAttachment(file.getKey(), new ByteArrayResource(decode),"application/pdf");
+            helper.addAttachment(file.getKey(), new ByteArrayResource(decode), "application/pdf");
         } catch (MessagingException e) {
             log.error("Failed to attach file named \"{}\" !", file.getKey());
         }
+    }
+
+    private void saveNotification(SendNotificationRequestDto sendNotificationRequestDto, NotificationSendStatus sendStatus) {
+        Notification notification = new Notification();
+        notification.setNotificationType(NotificationType.EMAIL);
+        notification.setSender(sendNotificationRequestDto.getSender());
+        notification.setRecipient(sendNotificationRequestDto.getRecipient());
+        notification.setMessage(sendNotificationRequestDto.getMessage());
+        notification.setCreatedDate(new Date());
+        notification.setSendStatus(sendStatus);
+        notificationRepository.save(notification);
     }
 }

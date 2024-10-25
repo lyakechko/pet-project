@@ -13,8 +13,10 @@ import org.springframework.stereotype.Component;
 public class NotificationJob implements Runnable {
 
     private final NotificationService notificationService;
+
     @Override
     public void run() {
+        log.info("");
         SendNotificationRequestDto sendNotificationRequestDto = SendNotificationRequestDto.builder()
                 .notificationType(NotificationType.EMAIL)
                 .message("Просьба не отвечать. Это не спам!")
