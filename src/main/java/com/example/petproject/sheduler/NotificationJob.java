@@ -16,7 +16,7 @@ public class NotificationJob implements Runnable {
 
     @Override
     public void run() {
-        log.info("");
+        log.info("11");
         SendNotificationRequestDto sendNotificationRequestDto = SendNotificationRequestDto.builder()
                 .notificationType(NotificationType.EMAIL)
                 .message("Просьба не отвечать. Это не спам!")
