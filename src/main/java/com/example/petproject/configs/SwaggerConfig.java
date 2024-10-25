@@ -26,8 +26,7 @@ public class SwaggerConfig {
     private static final String BEARER_FORMAT = "JWT";
     private static final String VERSION = "version 1.0";
     private static final String DESCRIPTION = "Pet project service";
-    private static final String TERMS_OF_SERVICE = "health";
-    private static final String PATH_CONTEXT = "server.servlet.context-path";
+    private static final String TERMS_OF_SERVICE = "v1/health";
 
     @Bean
     public OpenAPI openApiConfiguration() {

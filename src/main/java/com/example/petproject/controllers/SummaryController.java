@@ -41,11 +41,11 @@ import org.springframework.web.bind.annotation.RestController;
 })
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/resume")
-public class ResumeController {
+@RequestMapping("/summary")
+public class SummaryController {
     private final ResumeService resumeService;
 
-    @Operation(summary = "Get a statement document")
+    @Operation(summary = "Get a summary document")
     @ApiResponse(
             responseCode = "200",
             description = "Ok",
