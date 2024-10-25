@@ -9,4 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/services/v1/authentication")
 public class AuthenticationController {
 
+    private String s;
 }
