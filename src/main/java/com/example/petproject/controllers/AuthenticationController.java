@@ -11,4 +11,6 @@ public class AuthenticationController {
 
     private String s;
     private String s1;
+    private String s2;
+    private String s3;
 }
